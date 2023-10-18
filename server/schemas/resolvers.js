@@ -38,12 +38,26 @@ const resolvers = {
         createUser: async (parent, { username, email, password }) => {
             const user = await User.create({ username, email, password });
             const token = signToken(user);
-
+            return { token, user };
         },
 
         // login
-        login: async (parent) => {
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
 
+            if (!user) {
+                throw new AuthenticationError('No user found with this email address');
+            }
+
+            const correctPw = await user.isCorrectPassword(password);
+
+            if (!correctPw) {
+                throw new AuthenticationError('Incorrect password');
+            }
+
+            const token = signToken(user);
+
+            return { token, user };
         },
 
         // save a book
@@ -57,12 +71,12 @@ const resolvers = {
                 const book = await Book.findOneAndDelete({ _id: bookId });
 
 
-            await User.findOneAndUpdate(
-                { _id: context.user._id },
-                { $pull: { books: book._id }}
-            );
+                await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { books: book._id }}
+                );
 
-            return book;
+                return book;
             }
             throw new AuthenticationError('You need to be logged in to delete a book');
         },
