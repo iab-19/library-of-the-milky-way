@@ -16,7 +16,7 @@ const resolvers = {
         },
         book: async (parent, { username }) => {
             const params = username ? { username } : {};
-            return Book.find(params);
+            return Book.findOne(params);
         },
 
         me: async (parent, args, context) => {
@@ -30,7 +30,16 @@ const resolvers = {
     },
 
     Mutation: {
-        getSingleUser: async (parent) => {
+        getSingleUser: async (parent,) => {
+            const user = await User.findOne({
+                $or: [{ _id: user ? user._id : params.id}, { username: params.username }],
+            });
+
+            if (!user) {
+                throw new AuthenticationError('Cannot find this user');
+            }
+
+            return user;
 
         },
 
@@ -61,19 +70,26 @@ const resolvers = {
         },
 
         // save a book
-        saveBook: async (parent) => {
+        saveBook: async (parent, { username, bookId }) => {
+
+            await User.findOneAndUpdate(
+                { _id: username._id },
+                { $addToSet: { savedBooks: bookId}},
+                { new: true, runValidators: true}
+            );
 
         },
 
         // delete a book
-        deleteBook: async (parent, { bookId }) => {
+        deleteBook: async (parent, { username, bookId }) => {
             if (context.user) {
                 const book = await Book.findOneAndDelete({ _id: bookId });
 
 
                 await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { books: book._id }}
+                    { $pull: { savedBooks: book._id }},
+                    { new: true }
                 );
 
                 return book;
