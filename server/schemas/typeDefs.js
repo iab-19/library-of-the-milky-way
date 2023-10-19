@@ -35,12 +35,12 @@ type Query {
     me: User
 }
 
-# type Mutatuion {
-#     login(email: String!, password: String!): Auth
-#     addUser(username: String!, email: String!, password: String!): Auth
-#     saveBook(bookData: BookData!): User
-#     removeBook(bookId: ID!): User
-# }
+type Mutatuion {
+    login(email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
+    saveBook(bookData: BookData!): User
+    removeBook(bookId: ID!): User
+}
 
 `
 
