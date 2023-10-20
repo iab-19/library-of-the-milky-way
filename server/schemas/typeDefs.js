@@ -32,14 +32,18 @@ input BookData {
 }
 
 type Query {
+    # user: User
+    # books: [Book]
+    # book: Book
     me: User
 }
 
-type Mutatuion {
+type Mutation {
+    # getSingleUser(username: String!): User
+    createUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
     saveBook(bookData: BookData!): User
-    removeBook(bookId: ID!): User
+    deleteBook(bookId: ID!): User
 }
 
 `

@@ -6,18 +6,18 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        user: async (parent, { username }) => {
-            return User.findOne({ username }).populate('books');
-        },
+        // user: async (parent, { username }) => {
+        //     return User.findOne({ username }).populate('books');
+        // },
 
-        books: async (parent, { username }) => {
-            const params = username ? { username } : {};
-            return Book.find(params);
-        },
-        book: async (parent, { username }) => {
-            const params = username ? { username } : {};
-            return Book.findOne(params);
-        },
+        // books: async (parent, { username }) => {
+        //     const params = username ? { username } : {};
+        //     return Book.find(params);
+        // },
+        // book: async (parent, { username }) => {
+        //     const params = username ? { username } : {};
+        //     return Book.findOne(params);
+        // },
 
         me: async (parent, args, context) => {
             if (context.user) {
@@ -30,18 +30,18 @@ const resolvers = {
     },
 
     Mutation: {
-        getSingleUser: async (parent,) => {
-            const user = await User.findOne({
-                $or: [{ _id: user ? user._id : params.id}, { username: params.username }],
-            });
+        // getSingleUser: async (parent, { username }) => {
+        //     const user = await User.findOne({
+        //         $or: [{ _id: user ? user._id : params.id}, { username: params.username }],
+        //     });
 
-            if (!user) {
-                throw new AuthenticationError('Cannot find this user');
-            }
+        //     if (!user) {
+        //         throw new AuthenticationError('Cannot find this user');
+        //     }
 
-            return user;
+        //     return user;
 
-        },
+        // },
 
         // create new user
         createUser: async (parent, { username, email, password }) => {
@@ -73,7 +73,7 @@ const resolvers = {
         saveBook: async (parent, { username, bookId }) => {
 
             await User.findOneAndUpdate(
-                { _id: username._id },
+                { _id: username },
                 { $addToSet: { savedBooks: bookId}},
                 { new: true, runValidators: true}
             );
@@ -81,18 +81,14 @@ const resolvers = {
         },
 
         // delete a book
-        deleteBook: async (parent, { username, bookId }) => {
+        deleteBook: async (parent, { bookId }, context) => {
             if (context.user) {
-                const book = await Book.findOneAndDelete({ _id: bookId });
-
-
                 await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { savedBooks: book._id }},
+                    { $pull: { savedBooks: bookId }},
                     { new: true }
                 );
 
-                return book;
             }
             throw new AuthenticationError('You need to be logged in to delete a book');
         },
