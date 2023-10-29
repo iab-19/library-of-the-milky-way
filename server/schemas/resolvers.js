@@ -70,11 +70,11 @@ const resolvers = {
         },
 
         // save a book
-        saveBook: async (parent, { username, bookId }) => {
+        saveBook: async (parent, { bookData }, context) => {
 
             await User.findOneAndUpdate(
-                { _id: username },
-                { $addToSet: { savedBooks: bookId}},
+                { _id: context.user._id },
+                { $addToSet: { savedBooks: bookData}},
                 { new: true, runValidators: true}
             );
 
