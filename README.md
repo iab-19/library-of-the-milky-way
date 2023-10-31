@@ -25,12 +25,16 @@
 
 
   ## Installation
-  tbd
+  Navigate to the [Milky Way](https://us05web.zoom.us/j/84087911974?pwd=JvhajXhFYnAry0whz3tBbKPGPD4Bak.1) website and serch for books!
+
+  Screenshot of application:
+  ![milky-way-library-a4a2dc5ad5dd herokuapp com_ (1)](https://github.com/iab-19/library-of-the-milky-way/assets/132946236/ad51dea4-90c7-4d4f-b7dc-eaf9796752f1)
+
 
   <!-- What are they steps required to install your project? Provide a step-by-step description of how to get the development environment running. -->
 
   ## Usage
-  To be used to search for books
+  To be used to search for books and save them to your list.
 
   <!-- Provide instructions and examples for use. Include screenshots as needed.
 
@@ -54,7 +58,13 @@
   industry standard, but you can always write your own.-->
 
   ## Tests
-  tbd
+  Tests performed: 
+  - Create User
+  - Logout
+  - Login
+  - Search for a book
+  - Save a book
+  - Delete a saved book
 
   <!-- Go the extra mile and write tests for your application. Then provide examples on how to run them here. -->
 
