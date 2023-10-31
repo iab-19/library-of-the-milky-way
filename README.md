@@ -25,7 +25,7 @@
 
 
   ## Installation
-  Navigate to the [Milky Way]([https://us05web.zoom.us/j/84087911974?pwd=JvhajXhFYnAry0whz3tBbKPGPD4Bak.1](https://milky-way-library-a4a2dc5ad5dd.herokuapp.com/)) website and serch for books!
+  Navigate to the [Milky Way](https://milky-way-library-a4a2dc5ad5dd.herokuapp.com/) website and serch for books!
 
   Screenshot of application:
   ![milky-way-library-a4a2dc5ad5dd herokuapp com_ (1)](https://github.com/iab-19/library-of-the-milky-way/assets/132946236/ad51dea4-90c7-4d4f-b7dc-eaf9796752f1)
