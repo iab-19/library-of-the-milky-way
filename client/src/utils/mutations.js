@@ -26,7 +26,7 @@ export const SAVE_BOOK = gql`
     mutation saveBook($bookData: BookData!) {
         saveBook(bookData: $bookData) {
             _id
-           
+
         }
     }
 `
@@ -34,9 +34,9 @@ export const DELETE_BOOK = gql`
     mutation deleteBook($bookId: ID!) {
         deleteBook(bookId: $bookId) {
             _id
-            user {
-                username
-                savedBooks
+            username
+            savedBooks {
+                bookId
             }
         }
     }

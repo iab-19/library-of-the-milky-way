@@ -83,11 +83,12 @@ const resolvers = {
         // delete a book
         deleteBook: async (parent, { bookId }, context) => {
             if (context.user) {
-                await User.findOneAndUpdate(
+                const user = await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { savedBooks: bookId }},
+                    { $pull: { savedBooks: { bookId } }},
                     { new: true }
                 );
+                return user;
 
             }
             throw new AuthenticationError('You need to be logged in to delete a book');
